@@ -12,6 +12,8 @@ DS_finalframe_h5= MODEL / "classification05.h5"
 DS_vector       = MODEL / "classification05_tfidf.pkl"
 
 MODEL_rf    = MODEL / "classifcation05_rf.pkl"
+MODEL_nbc   = MODEL / "classifcation05_nbc.pkl"
+MODEL_xgb   = MODEL / "classifcation05_xgb.pkl"
 
 # #Global
 # TRAIN=./data/train/

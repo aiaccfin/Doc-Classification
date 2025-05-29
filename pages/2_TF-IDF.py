@@ -10,14 +10,15 @@ from sklearn.preprocessing import LabelEncoder
 import config
 
 from utils import streamlit_components
-
-dataset_pkl = config.XAI_DATASET_finalframe
-dataset_h5  = config.XAI_DATASET_finalframe_h5
-vectorizer_pkl  = config.XAI_DATASET_vector
-
-finalframe = pd.read_pickle(dataset_pkl)
-
 streamlit_components.streamlit_ui('🦣 Term Frequency-Inverse Doc Frequency')
+
+
+st.text(f"pkl: {config.DS_finalframe}")
+st.text(f"pkl: {config.DS_finalframe_h5}")
+
+
+finalframe = pd.read_pickle(config.DS_finalframe)
+
 
 if button("TF-IDF?", key="button1"):
     # Converting the text data into vectors using TF-IDF
@@ -34,13 +35,13 @@ if button("TF-IDF?", key="button1"):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
     # Save all datasets in one HDF5 file
-    X_train.to_hdf(dataset_h5, key='X_train', mode='w')
-    X_test.to_hdf(dataset_h5, key='X_test', mode='a')
-    pd.Series(y_train).to_hdf(dataset_h5, key='y_train', mode='a')
-    pd.Series(y_test).to_hdf(dataset_h5, key='y_test', mode='a')
+    X_train.to_hdf(config.DS_finalframe_h5, key='X_train', mode='w')
+    X_test.to_hdf(config.DS_finalframe_h5, key='X_test', mode='a')
+    pd.Series(y_train).to_hdf(config.DS_finalframe_h5, key='y_train', mode='a')
+    pd.Series(y_test).to_hdf(config.DS_finalframe_h5, key='y_test', mode='a')
 
-    with open(vectorizer_pkl, 'wb') as f:
+    with open(config.DS_vector, 'wb') as f:
             pickle.dump(tfidfconverter, f)
 
-    st.success(f"✅ TF-IDF vectorizer saved to: {vectorizer_pkl}")
-    st.success(f"✅ Training data saved to: {dataset_h5}")
+    st.success(f"✅ TF-IDF vectorizer saved to: {config.DS_vector}")
+    st.success(f"✅ Training data saved to: {config.DS_finalframe_h5}")

@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_extras.stateful_button import button
-from utils import dataset_processing, streamlit_components, image_processing, face_processing
+from utils import dataset_processing, streamlit_components, image_processing
 
 import os, config
 import pandas as pd
@@ -14,16 +14,16 @@ from sklearn import preprocessing
 
 streamlit_components.streamlit_ui('🦣 Random Forest Classifier')
 
-model_rf   = config.XAI_MODEL_rf
+model_rf   = config.MODEL_rf
 
-dataset_h5  = config.XAI_DATASET_finalframe_h5
+dataset_h5  = config.DS_finalframe_h5
 
 X_train = pd.read_hdf(dataset_h5 , key='X_train')
 X_test  = pd.read_hdf(dataset_h5, key='X_test')
 y_train = pd.read_hdf(dataset_h5, key='y_train')
 y_test  = pd.read_hdf(dataset_h5, key='y_test')
 
-my_tags = ['Agreements', 'Taxes','Valuations']
+my_tags = ['Invoices', 'Receipts','Bank Statements']
 
 if button("Run?", key="button2"):
 
@@ -42,7 +42,8 @@ if button("Run?", key="button2"):
     st.text('Confusion matrix:')
     st.text(conf_mat)
 
-    labels = ['Agreement', 'Taxes', 'Valuations']
+    
+    labels = ['Invoices', 'Receipts','Bank Statements']
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
