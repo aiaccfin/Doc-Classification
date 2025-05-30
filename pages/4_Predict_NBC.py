@@ -42,7 +42,9 @@ if uploaded_file is not None:
     prediction = rf_model.predict(tfidf_input)
 
     # Optional: map predicted class index to label
-    label_map = ['Invoices', 'Receipts','Bank Statements']
+    # label_map = ['Invoices', 'Receipts','Bank Statements']
+    label_map = ['Bank Statements','Invoice', 'Receipts']
+
     predicted_label = label_map[prediction[0]] if prediction[0] < len(label_map) else f"Class {prediction[0]}"
 
     # Step 6: Display result
