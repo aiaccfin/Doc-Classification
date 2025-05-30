@@ -26,7 +26,7 @@ if button("Convert?", key="but5"):
     st.info('bs...')
     bs_df = dataset_processing.text_processing(bs_text, 'Bank Statement', 'Bank Statements, bank document')
 
-    frames = [inv_df, bs_df, re_df]
+    frames = [inv_df, re_df, bs_df]
     finalframe = pd.concat(frames, sort=False)
     finalframe = finalframe[['Identifiers', 'Text_Data', 'Category']]
     finalframe = finalframe.reset_index(drop=True)

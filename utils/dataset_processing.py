@@ -18,6 +18,16 @@ from PIL import Image
 from io import BytesIO
 
 
+import tempfile
+
+def convert_1file_to_text(uploaded_file):
+    with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(uploaded_file.name)[1]) as tmp:
+        tmp.write(uploaded_file.read())
+        tmp_path = tmp.name
+
+    return next(convert_files_to_text(os.path.dirname(tmp_path)))
+
+
 def convert_files_to_text(path):
     filelist = os.listdir(path)
     for filename in filelist:

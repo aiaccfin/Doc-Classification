@@ -43,15 +43,15 @@ if button("Run?", key="button2"):
     st.text(conf_mat)
 
     
-    labels = ['Invoices', 'Receipts','Bank Statements']
+    # labels = ['Invoices', 'Receipts','Bank Statements']
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
     cax = ax.matshow(conf_mat, cmap=plt.cm.Blues)
     fig.colorbar(cax)
 
-    ax.set_xticklabels([''] + labels)
-    ax.set_yticklabels([''] + labels)
+    ax.set_xticklabels([''] + my_tags)
+    ax.set_yticklabels([''] + my_tags)
 
     plt.xlabel('Predicted')
     plt.ylabel('Expected')

@@ -23,7 +23,7 @@ finalframe = pd.read_pickle(config.DS_finalframe)
 if button("TF-IDF?", key="button1"):
     # Converting the text data into vectors using TF-IDF
     # Generating 1000 features for the input for the model
-    tfidfconverter = TfidfVectorizer(max_features=1000, stop_words=stopwords.words('english'))
+    tfidfconverter = TfidfVectorizer(max_features=2000, stop_words=stopwords.words('english'))
     X = pd.DataFrame(tfidfconverter.fit_transform(finalframe['Text_Data']).toarray())
     st.dataframe(X)
     # X.columns = range(X.shape[1])

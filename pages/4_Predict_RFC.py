@@ -42,7 +42,8 @@ if uploaded_file is not None:
     prediction = rf_model.predict(tfidf_input)
 
     # Optional: map predicted class index to label
-    label_map = ['Invoices', 'Receipts','Bank Statements']
+    # label_map = ['Invoices', 'Receipts','Bank Statements']
+    label_map = ['Bank Statements','Invoice', 'Receipts']
     predicted_label = label_map[prediction[0]] if prediction[0] < len(label_map) else f"Class {prediction[0]}"
 
     # Step 6: Display result
@@ -59,10 +60,16 @@ if uploaded_file is not None:
         proba = rf_model.predict_proba(tfidf_input)[0]
         proba_df = pd.DataFrame({
             "Category": label_map,
-            "Confidence": [f"{p:.2%}" for p in proba]
+            "Confidence": proba,
+            "Confidence %": [f"{p:.2%}" for p in proba],
         })
+
+        # Highlight prediction and sort
+        proba_df["Predicted"] = proba_df["Category"] == predicted_label
+        proba_df = proba_df.sort_values(by="Confidence", ascending=False)
+
         st.subheader("📊 Prediction Confidence")
-        st.dataframe(proba_df)
+        st.dataframe(proba_df.style.highlight_max(subset=["Confidence"], color="lightgreen"))
     else:
         st.warning("Model does not support confidence scores (predict_proba missing).")
 
